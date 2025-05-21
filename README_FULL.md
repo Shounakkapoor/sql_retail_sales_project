@@ -48,10 +48,14 @@ CREATE TABLE retail_sales3(
 
 ```sql
 DELETE FROM retail_sales3
-WHERE age IS NULL
-   OR cogs IS NULL
-   OR sale_date IS NULL
-   OR quantiy IS NULL;
+WHERE
+	age IS NULL
+	OR
+	cogs IS NULL
+	OR
+	sale_date IS NULL
+	OR
+	quantiy IS NULL;
 ```
 
 ---
@@ -61,19 +65,25 @@ WHERE age IS NULL
 #### 🔸 Total Sales
 
 ```sql
-SELECT COUNT(*) AS total_sales FROM retail_sales3;
+SELECT
+	COUNT(*) AS total_sales
+FROM retail_sales3;
 ```
 
 #### 🔸 Unique Customers
 
 ```sql
-SELECT COUNT(DISTINCT customer_id) AS total_customers FROM retail_sales3;
+SELECT
+	COUNT(DISTINCT customer_id) AS total_customers
+FROM retail_sales3;
 ```
 
 #### 🔸 Unique Product Categories
 
 ```sql
-SELECT COUNT(DISTINCT category) AS unique_categories FROM retail_sales3;
+SELECT
+	COUNT(DISTINCT category) AS unique_categories
+FROM retail_sales3;
 ```
 
 ---
