@@ -55,3 +55,156 @@ WHERE
 	OR
 	sale_date IS NULL
 	OR
+	quantiy IS NULL;
+```
+
+---
+
+### 🔹 3. Exploratory Data Analysis
+
+#### 🔸 Total Sales
+
+```sql
+SELECT
+	COUNT(*) AS total_sales
+FROM retail_sales3;
+```
+
+#### 🔸 Unique Customers
+
+```sql
+SELECT
+	COUNT(DISTINCT customer_id) AS total_customers
+FROM retail_sales3;
+```
+
+#### 🔸 Unique Product Categories
+
+```sql
+SELECT
+	COUNT(DISTINCT category) AS unique_categories
+FROM retail_sales3;
+```
+
+---
+
+## ❓ Business Questions and Answers
+
+### Q1: Sales made on 2022-11-05
+
+```sql
+SELECT *
+FROM retail_sales3
+WHERE sale_date = '2022-11-05';
+```
+
+### Q2: 'Clothing' sales with quantity > 4 in Nov 2022
+
+```sql
+SELECT *
+FROM retail_sales3
+WHERE
+	category = 'Clothing'
+	AND
+	MONTH(sale_date) = 11
+	AND
+	quantiy >= 4;
+```
+
+### Q3: Total sales per category
+
+```sql
+SELECT
+	category,
+	SUM(total_sale) AS net_sales,
+	COUNT(*) AS total_orders
+FROM retail_sales3
+GROUP BY category;
+```
+
+### Q4: Average age of customers who bought 'Beauty'
+
+```sql
+SELECT ROUND(AVG(age)) AS average_age
+FROM retail_sales3
+	WHERE category = 'Beauty';
+```
+
+### Q5: Transactions where total_sale > 1000
+
+```sql
+SELECT *
+FROM retail_sales3
+	WHERE total_sale > 1000;
+```
+
+### Q6: Total transactions by gender and category
+
+```sql
+SELECT category, gender, COUNT(transactions_id)
+FROM retail_sales3
+GROUP BY category, gender
+ORDER BY category;
+```
+
+### Q7: Average monthly sale and best-selling months
+
+```sql
+SELECT year, month, avg_sale
+FROM (
+	SELECT
+		YEAR(sale_date) AS year,
+		MONTH(sale_date) AS month,
+		ROUND(AVG(total_sale)) AS avg_sale,
+		RANK() OVER(ORDER BY AVG(total_sale) DESC) AS best_selling_months
+	FROM retail_sales3
+	GROUP BY YEAR(sale_date), MONTH(sale_date)
+) T1
+WHERE best_selling_months IN (1, 2);
+```
+
+### Q8: Top 5 customers by total sales
+
+```sql
+SELECT
+	customer_id,
+	SUM(total_sale) AS total_sale
+FROM retail_sales3
+GROUP BY customer_id
+ORDER BY total_sale DESC
+LIMIT 5;
+```
+
+### Q9: Unique customers per category
+
+```sql
+SELECT
+	category,
+	COUNT(DISTINCT customer_id) AS unique_customers
+FROM retail_sales3
+GROUP BY category;
+```
+
+### Q10: Orders by time shift
+
+```sql
+SELECT 
+	CASE
+		WHEN HOUR(sale_time) < 12 THEN 'Morning'
+		WHEN HOUR(sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
+		ELSE 'Evening'
+	END AS shift,
+	COUNT(transactions_id) AS total_orders
+FROM retail_sales3
+GROUP BY shift;
+```
+
+---
+
+## 📬 Contact
+
+For any questions, feel free to connect:
+
+**Author:** Shounak Kapoor  
+**Email:** [shounakkapoor1410@gmail.com] 
+**LinkedIn:** [https://ca.linkedin.com/in/shounak-kapoor-0bb32b2a7]  
