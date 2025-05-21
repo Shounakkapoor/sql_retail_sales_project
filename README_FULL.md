@@ -83,20 +83,31 @@ SELECT COUNT(DISTINCT category) AS unique_categories FROM retail_sales3;
 ### Q1: Sales made on 2022-11-05
 
 ```sql
-SELECT * FROM retail_sales3 WHERE sale_date = '2022-11-05';
+SELECT *
+FROM retail_sales3
+WHERE sale_date = '2022-11-05';
 ```
 
 ### Q2: 'Clothing' sales with quantity > 4 in Nov 2022
 
 ```sql
-SELECT * FROM retail_sales3
-WHERE category = 'Clothing' AND MONTH(sale_date) = 11 AND quantiy >= 4;
+SELECT *
+FROM retail_sales3
+WHERE
+	category = 'Clothing'
+	AND
+	MONTH(sale_date) = 11
+	AND
+	quantiy >= 4;
 ```
 
 ### Q3: Total sales per category
 
 ```sql
-SELECT category, SUM(total_sale) AS net_sales, COUNT(*) AS total_orders
+SELECT
+	category,
+	SUM(total_sale) AS net_sales,
+	COUNT(*) AS total_orders
 FROM retail_sales3
 GROUP BY category;
 ```
@@ -106,13 +117,15 @@ GROUP BY category;
 ```sql
 SELECT ROUND(AVG(age)) AS average_age
 FROM retail_sales3
-WHERE category = 'Beauty';
+	WHERE category = 'Beauty';
 ```
 
 ### Q5: Transactions where total_sale > 1000
 
 ```sql
-SELECT * FROM retail_sales3 WHERE total_sale > 1000;
+SELECT *
+FROM retail_sales3
+	WHERE total_sale > 1000;
 ```
 
 ### Q6: Total transactions by gender and category
@@ -129,8 +142,11 @@ ORDER BY category;
 ```sql
 SELECT year, month, avg_sale
 FROM (
-	SELECT YEAR(sale_date) AS year, MONTH(sale_date) AS month, ROUND(AVG(total_sale)) AS avg_sale,
-	       RANK() OVER(ORDER BY AVG(total_sale) DESC) AS best_selling_months
+	SELECT
+		YEAR(sale_date) AS year,
+		MONTH(sale_date) AS month,
+		ROUND(AVG(total_sale)) AS avg_sale,
+		RANK() OVER(ORDER BY AVG(total_sale) DESC) AS best_selling_months
 	FROM retail_sales3
 	GROUP BY YEAR(sale_date), MONTH(sale_date)
 ) T1
@@ -140,7 +156,9 @@ WHERE best_selling_months IN (1, 2);
 ### Q8: Top 5 customers by total sales
 
 ```sql
-SELECT customer_id, SUM(total_sale) AS total_sale
+SELECT
+	customer_id,
+	SUM(total_sale) AS total_sale
 FROM retail_sales3
 GROUP BY customer_id
 ORDER BY total_sale DESC
@@ -150,7 +168,9 @@ LIMIT 5;
 ### Q9: Unique customers per category
 
 ```sql
-SELECT category, COUNT(DISTINCT customer_id) AS unique_customers
+SELECT
+	category,
+	COUNT(DISTINCT customer_id) AS unique_customers
 FROM retail_sales3
 GROUP BY category;
 ```
