@@ -97,6 +97,7 @@ SELECT *
 FROM retail_sales3
 WHERE sale_date = '2022-11-05';
 ```
+✅ Returns detailed info on each sale made on this specific date.
 
 ### Q2: 'Clothing' sales with quantity > 4 in Nov 2022
 
@@ -110,6 +111,7 @@ WHERE
 	AND
 	quantiy >= 4;
 ```
+✅ Useful for seasonal inventory and promotional analysis.
 
 ### Q3: Total sales per category
 
@@ -121,6 +123,7 @@ SELECT
 FROM retail_sales3
 GROUP BY category;
 ```
+✅ Identifies top revenue-generating product categories.
 
 ### Q4: Average age of customers who bought 'Beauty'
 
@@ -129,6 +132,7 @@ SELECT ROUND(AVG(age)) AS average_age
 FROM retail_sales3
 	WHERE category = 'Beauty';
 ```
+✅ Helps target marketing campaigns by age segment.
 
 ### Q5: Transactions where total_sale > 1000
 
@@ -137,6 +141,7 @@ SELECT *
 FROM retail_sales3
 	WHERE total_sale > 1000;
 ```
+✅ Pinpoints high-value orders, possibly by VIP customers
 
 ### Q6: Total transactions by gender and category
 
@@ -146,6 +151,7 @@ FROM retail_sales3
 GROUP BY category, gender
 ORDER BY category;
 ```
+✅ Reveals which products appeal more to each gender.
 
 ### Q7: Average monthly sale and best-selling months
 
@@ -162,6 +168,7 @@ FROM (
 ) T1
 WHERE best_selling_months IN (1, 2);
 ```
+✅ Highlights seasonal trends to plan inventory.
 
 ### Q8: Top 5 customers by total sales
 
@@ -174,6 +181,7 @@ GROUP BY customer_id
 ORDER BY total_sale DESC
 LIMIT 5;
 ```
+✅ Identifies most valuable customers for loyalty programs.
 
 ### Q9: Unique customers per category
 
@@ -184,6 +192,7 @@ SELECT
 FROM retail_sales3
 GROUP BY category;
 ```
+✅ Shows which product categories attract more diverse buyers.
 
 ### Q10: Orders by time shift
 
@@ -198,8 +207,26 @@ SELECT
 FROM retail_sales3
 GROUP BY shift;
 ```
+✅ Useful to optimize staffing and offers for different time slots.
 
 ---
+## 💡 Key Insights
+
+Clothing and Electronics are top-selling categories.
+
+Most sales happen in the Afternoon and Evening.
+
+November sees high-value orders, possibly due to Black Friday.
+
+Customer age trends differ per category—valuable for targeting.
+
+## 📌 How to Run This Project
+
+Import the dataset into your SQL environment.
+
+Run the Project 1.sql file in sequence.
+
+Modify queries to answer your own business questions!
 
 ## 📬 Contact
 
